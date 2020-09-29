@@ -10,13 +10,23 @@ public class CityManager : MonoBehaviour
 
     [Tooltip("Mark the object as DontDestroyOnLoad.")]
     [SerializeField] private bool isPersistent;
-
-    [SerializeField] private HashSet<House> houses = new HashSet<House>();
-
+    
+    [SerializeField] private float startingMoney = 500;
+    [SerializeField] private float startingCarbonEmission = 15;
+    [SerializeField] private float maxCarbonEmission = 30;
+    
+    [Header("The below variables are serialized only for being easily viewable on the editor.")]
+    
     [SerializeField] private float currentMoney;
+    [SerializeField] private float currentCarbonEmission;
 
+    private HashSet<House> houses = new HashSet<House>();
+
+    private float taxIncomePerSecond;
     private void Awake()
     {
+        currentMoney = startingMoney;
+        currentCarbonEmission = startingCarbonEmission;
         if (!instance)
         {
             instance = this;
@@ -34,8 +44,12 @@ public class CityManager : MonoBehaviour
     {
         foreach (House house in houses)
         {
-            currentMoney += house.TaxIncome * Time.deltaTime;
+            taxIncomePerSecond += house.TaxIncome * house.CurrentHappiness;
         }
+
+        taxIncomePerSecond /= (maxCarbonEmission / 2)+ currentCarbonEmission/maxCarbonEmission;
+        taxIncomePerSecond *= Time.deltaTime;
+        currentMoney += taxIncomePerSecond;
     }
 
     public void TrackHouse(House house)
