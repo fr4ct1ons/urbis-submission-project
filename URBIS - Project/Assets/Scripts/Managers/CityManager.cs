@@ -60,14 +60,7 @@ public class CityManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI guiTaxIncomePerSecond;
     [SerializeField] private TextMeshProUGUI guiAverageHappiness;
     [SerializeField] private TextMeshProUGUI guiAverageCarbonEmission;
-
-    [Space]
-    [SerializeField] private GameObject structureInfoWindow;
-    [SerializeField] private TextMeshProUGUI structureInfoText;
-
-    [Space]
-    [SerializeField] private GameObject gameOverWindow;
-
+    
     [Header("The below variables are serialized only for being easily viewable on the editor.")]
     
     [SerializeField] private float currentMoney;
@@ -80,17 +73,11 @@ public class CityManager : MonoBehaviour
 
     private HashSet<House> houses = new HashSet<House>();
     private HashSet<EmptyTile> emptyTiles = new HashSet<EmptyTile>();
-    private BaseBuilding selectedObject;
 
     private IEnumerator lowTaxIncomeCoroutine, lowHappinessCoroutine, highCarbonEmissionCoroutine;
 
     private EmptyTile[] emptyTilesArray;
-
-    public BaseBuilding SelectedObject
-    {
-        get => selectedObject;
-        //set => selectedObject = value;
-    }
+    
     public Vector3 DistanceBetweenHouses
     {
         get => distanceBetweenHouses;
@@ -213,7 +200,7 @@ public class CityManager : MonoBehaviour
     private void LoseGame()
     {
         Time.timeScale = 0.0f;
-        gameOverWindow.SetActive(true);
+        CityGUIManager.Instance.SetGameOverWindowVisibility(true);
     }
 
     private IEnumerator LowHappinessLoss()
@@ -249,69 +236,6 @@ public class CityManager : MonoBehaviour
 
         emptyTiles.Remove(randomTile);
         Destroy(randomTile.gameObject);
-    }
-    
-    private void BeforeShowInfo()
-    {
-        if (selectedObject)
-        {
-            selectedObject.Deselect();
-        }
-    }
-
-    public void HideInfoWindow()
-    {
-        selectedObject = null;
-    }
-
-    public void ShowHouseInfo(House house)
-    {
-        BeforeShowInfo();
-        selectedObject = house;
-        structureInfoWindow.SetActive(true);
-        string temp = "Casa\n" +
-                      "Renda: " + house.TaxIncome + "\n" +
-                      "Felicidade: " + house.CurrentHappiness + "\n" +
-                      "Emissão de CO2: " + house.CarbonEmission + "\n";
-        if (!house.HasHospital)
-        {
-            temp += "<color=red>Não há acesso a um hospital!</color>\n";
-        }
-        if (!house.HasPoliceDepartment)
-        {
-            temp += "<color=red>Não há acesso a uma delegacia!</color>!";
-        }
-        structureInfoText.SetText(temp);
-    }
-
-    public void ShowHospitalInfo(Hospital hospital)
-    {
-        selectedObject = hospital;
-        structureInfoWindow.SetActive(true);
-        string temp = "Hospital\n" +
-                      "Casas conectadas: " + hospital.ConnectedHouses;
-
-        structureInfoText.SetText(temp);
-    }
-
-    public void ShowBusStopInfo(BusStop busStop)
-    {
-        selectedObject = busStop;
-        structureInfoWindow.SetActive(true);
-        string temp = "Parada de ônibus\n" +
-                      "Casas conectadas: " + busStop.ConnectedHouses;
-
-        structureInfoText.SetText(temp);
-    }
-    
-    public void ShowPoliceDepartmentInfo(PoliceDepartment policeDepartment)
-    {
-        selectedObject = policeDepartment;
-        structureInfoWindow.SetActive(true);
-        string temp = "Delegacia\n" +
-                      "Casas conectadas: " + policeDepartment.ConnectedHouses;
-
-        structureInfoText.SetText(temp);
     }
 
     public void TrackHouse(House house)

@@ -64,6 +64,6 @@ public class House : BaseBuilding
 
     protected override void OnSelection()
     {
-        CityManager.Instance.ShowHouseInfo(this);
+        CityGUIManager.Instance.ShowHouseInfo(this);
     }
 }

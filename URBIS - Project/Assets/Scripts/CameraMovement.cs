@@ -98,8 +98,8 @@ public class CameraMovement : MonoBehaviour
         bufferForward.y = 0.0f;
         bufferForward *= inputs.Gameplay.MoveCamera.ReadValue<Vector2>().y;
 
-        objectToMove.position += bufferForward * Time.deltaTime * frontSpeed * (1 + freeLookCamera.m_Lens.OrthographicSize - maxZoom);
-        objectToMove.position += bufferRight * Time.deltaTime * horizontalSpeed * (1 + freeLookCamera.m_Lens.OrthographicSize - maxZoom);
+        objectToMove.position += bufferForward * Time.unscaledDeltaTime * frontSpeed * (1 + freeLookCamera.m_Lens.OrthographicSize - maxZoom);
+        objectToMove.position += bufferRight * Time.unscaledDeltaTime * horizontalSpeed * (1 + freeLookCamera.m_Lens.OrthographicSize - maxZoom);
 
         freeLookCamera.m_XAxis.m_InputAxisValue = cameraRotationValue;
     }

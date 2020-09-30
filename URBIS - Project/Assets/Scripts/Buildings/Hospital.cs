@@ -41,7 +41,7 @@ public class Hospital: BaseBuilding
     {
         base.OnSelection();
         radiusObject.SetActive(true);
-        CityManager.Instance.ShowHospitalInfo(this);
+        CityGUIManager.Instance.ShowHospitalInfo(this);
     }
 
     public override void Deselect()

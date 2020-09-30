@@ -45,7 +45,7 @@ public class PoliceDepartment: BaseBuilding
     {
         base.OnSelection();
         radiusObject.SetActive(true);
-        CityManager.Instance.ShowPoliceDepartmentInfo(this);
+        CityGUIManager.Instance.ShowPoliceDepartmentInfo(this);
     }
 
     public override void Deselect()

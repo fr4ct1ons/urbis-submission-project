@@ -43,7 +43,7 @@ public class BusStop: BaseBuilding
     {
         base.OnSelection();
         radiusObject.SetActive(true);
-        CityManager.Instance.ShowBusStopInfo(this);
+        CityGUIManager.Instance.ShowBusStopInfo(this);
     }
 
     public override void Deselect()
