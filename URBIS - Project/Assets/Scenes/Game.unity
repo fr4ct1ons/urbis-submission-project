@@ -551,10 +551,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToMove: {fileID: 1867464527}
-  cameraTransform: {fileID: 1629637505}
+  cameraTransform: {fileID: 2104602967}
   camera: {fileID: 2104602966}
-  movementSpeed: 3
   freeLookCamera: {fileID: 1629637504}
+  maxZoom: 8
+  movementSpeed: 10
+  zoomSensibility: 0.05
 --- !u!4 &491857529
 Transform:
   m_ObjectHideFlags: 0
@@ -2937,7 +2939,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954992046}
-  m_LocalRotation: {x: 0.32065728, y: 0.000000059604645, z: -0.000000007450581, w: 0.94719535}
+  m_LocalRotation: {x: 0.32065725, y: 0.000000029802322, z: -0.000000029802322, w: 0.94719535}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

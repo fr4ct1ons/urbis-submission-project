@@ -41,6 +41,14 @@ public class @CameraInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""f257c53f-afe2-4c56-a598-20ca44391864"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -142,6 +150,17 @@ public class @CameraInputs : IInputActionCollection, IDisposable
                     ""action"": ""LeftClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""34e8e868-bcf5-426f-a51c-2cdc78d067e9"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -153,6 +172,7 @@ public class @CameraInputs : IInputActionCollection, IDisposable
         m_Gameplay_MoveCamera = m_Gameplay.FindAction("MoveCamera", throwIfNotFound: true);
         m_Gameplay_RotateCamera = m_Gameplay.FindAction("RotateCamera", throwIfNotFound: true);
         m_Gameplay_LeftClick = m_Gameplay.FindAction("LeftClick", throwIfNotFound: true);
+        m_Gameplay_Zoom = m_Gameplay.FindAction("Zoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,6 +225,7 @@ public class @CameraInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_MoveCamera;
     private readonly InputAction m_Gameplay_RotateCamera;
     private readonly InputAction m_Gameplay_LeftClick;
+    private readonly InputAction m_Gameplay_Zoom;
     public struct GameplayActions
     {
         private @CameraInputs m_Wrapper;
@@ -212,6 +233,7 @@ public class @CameraInputs : IInputActionCollection, IDisposable
         public InputAction @MoveCamera => m_Wrapper.m_Gameplay_MoveCamera;
         public InputAction @RotateCamera => m_Wrapper.m_Gameplay_RotateCamera;
         public InputAction @LeftClick => m_Wrapper.m_Gameplay_LeftClick;
+        public InputAction @Zoom => m_Wrapper.m_Gameplay_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -230,6 +252,9 @@ public class @CameraInputs : IInputActionCollection, IDisposable
                 @LeftClick.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftClick;
                 @LeftClick.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftClick;
                 @LeftClick.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftClick;
+                @Zoom.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -243,6 +268,9 @@ public class @CameraInputs : IInputActionCollection, IDisposable
                 @LeftClick.started += instance.OnLeftClick;
                 @LeftClick.performed += instance.OnLeftClick;
                 @LeftClick.canceled += instance.OnLeftClick;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
             }
         }
     }
@@ -252,5 +280,6 @@ public class @CameraInputs : IInputActionCollection, IDisposable
         void OnMoveCamera(InputAction.CallbackContext context);
         void OnRotateCamera(InputAction.CallbackContext context);
         void OnLeftClick(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
     }
 }
