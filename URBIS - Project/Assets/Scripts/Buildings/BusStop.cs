@@ -3,12 +3,20 @@ using UnityEngine;
 
 public class BusStop: BaseBuilding
 {
-    [SerializeField] private float carbonDecrease = 3.0f;
-    
     [SerializeField] private CollisionAuxiliary auxCollider;
+    
+    [SerializeField] private GameObject radiusObject;
+    [SerializeField] private int connectedHouses = 0;
 
-    private void Awake()
+    public int ConnectedHouses
     {
+        get => connectedHouses;
+        set => connectedHouses = value;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
         auxCollider.TriggerEnter += OnAuxEnter;
         auxCollider.TriggerExit += OnAuxExit;
     }
@@ -18,6 +26,7 @@ public class BusStop: BaseBuilding
         if (other.TryGetComponent<House>(out House house))
         {
             house.AmountOfBusStops++;
+            connectedHouses++;
         }
     }
 
@@ -26,6 +35,19 @@ public class BusStop: BaseBuilding
         if (other.TryGetComponent<House>(out House house))
         {
             house.AmountOfBusStops--;
+            connectedHouses--;
         }
+    }
+    
+    protected override void OnSelection()
+    {
+        base.OnSelection();
+        radiusObject.SetActive(true);
+        CityManager.Instance.ShowBusStopInfo(this);
+    }
+
+    public override void Deselect()
+    {
+        radiusObject.SetActive(false);
     }
 }

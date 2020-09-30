@@ -7,9 +7,19 @@ public class PoliceDepartment: BaseBuilding
     [SerializeField] private float secondaryHappinessIncrease = 0.05f;
     
     [SerializeField] private CollisionAuxiliary triggerCollider;
-
-    private void Awake()
+    
+    [SerializeField] private GameObject radiusObject;
+    [SerializeField] private int connectedHouses = 0;
+    
+    public int ConnectedHouses
     {
+        get => connectedHouses;
+        set => connectedHouses = value;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
         triggerCollider.TriggerEnter += OnTriggerEnter;
     }
     
@@ -26,6 +36,20 @@ public class PoliceDepartment: BaseBuilding
             {
                 house.CurrentHappiness += secondaryHappinessIncrease;
             }
+
+            connectedHouses++;
         }
+    }
+    
+    protected override void OnSelection()
+    {
+        base.OnSelection();
+        radiusObject.SetActive(true);
+        CityManager.Instance.ShowPoliceDepartmentInfo(this);
+    }
+
+    public override void Deselect()
+    {
+        radiusObject.SetActive(false);
     }
 }

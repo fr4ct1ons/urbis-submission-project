@@ -46,9 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taxIncome: 1
-  currentHappiness: 1
+  currentHappiness: 0.8
+  carbonEmission: 2
   hasPoliceDepartment: 0
   hasHospital: 0
+  amountOfBusStops: 0
 --- !u!65 &5448327755517884930
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -74,7 +76,7 @@ GameObject:
   - component: {fileID: 8788620018928378274}
   - component: {fileID: 7677367254780938005}
   m_Layer: 0
-  m_Name: House
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,6 +5,30 @@ using UnityEngine;
 
 public class BaseBuilding : MonoBehaviour
 {
+    protected virtual void Awake()
+    {
+        CameraMovement.OnMouseClick += MouseClicked;
+    }
+
+    private void MouseClicked(RaycastHit hitobject)
+    {
+        if (hitobject.collider.gameObject == gameObject)
+        {
+            OnSelection();
+            Highlight();
+        }
+    }
+
+    protected virtual void Highlight()
+    {
+        
+    }
+    
+    protected virtual void OnSelection()
+    {
+        
+    }
+
     protected virtual void Start()
     {
         Vector3[]  adjacents = new Vector3[4]; //frontHouse, backHouse, rightHouse, leftHouse;
@@ -34,5 +58,10 @@ public class BaseBuilding : MonoBehaviour
                 CityManager.Instance.TrackEmptyTile(adjacent);
             }
         }
+    }
+
+    public virtual void Deselect()
+    {
+        
     }
 }

@@ -65,9 +65,10 @@ public class CameraMovement : MonoBehaviour
         Debug.DrawRay(screenRay.origin, screenRay.direction * 100.0f, Color.green, 3.0f);
 
         RaycastHit result;
-        Physics.Raycast(screenRay, out result);
-
-        OnMouseClick?.Invoke(result);
+        if (Physics.Raycast(screenRay, out result))
+        {
+            OnMouseClick?.Invoke(result);
+        }
     }
 
     private void RotateCamera(InputAction.CallbackContext obj)

@@ -5,11 +5,17 @@ public class Hospital: BaseBuilding
 {
     [SerializeField] private float happinessIncrease = 0.1f;
     [SerializeField] private float secondaryHappinessIncrease = 0.05f;
-
+    [SerializeField] private GameObject radiusObject;
+    
     [SerializeField] private CollisionAuxiliary triggerCollider;
+    
+    [SerializeField] private int connectedHouses = 0;
 
-    private void Awake()
+    public int ConnectedHouses => connectedHouses;
+
+    protected override void Awake()
     {
+        base.Awake();
         triggerCollider.TriggerEnter += OnTriggerEnter;
     }
 
@@ -26,6 +32,25 @@ public class Hospital: BaseBuilding
             {
                 house.CurrentHappiness += secondaryHappinessIncrease;
             }
+
+            connectedHouses++;
         }
+    }
+
+    protected override void OnSelection()
+    {
+        base.OnSelection();
+        radiusObject.SetActive(true);
+        CityManager.Instance.ShowHospitalInfo(this);
+    }
+
+    protected override void Highlight()
+    {
+        base.Highlight();
+    }
+
+    public override void Deselect()
+    {
+        radiusObject.SetActive(false);
     }
 }

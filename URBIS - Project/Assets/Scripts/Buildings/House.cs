@@ -7,8 +7,8 @@ public class House : BaseBuilding
 {
     [Tooltip("Tax income of this house per second.")]
     [SerializeField] private float taxIncome = 1.0f;
-    [Tooltip("Happiness in the current house, from 0 to 2. The house's taxIncome value will be multiplied by the happiness")]
-    [SerializeField] private float currentHappiness = 1.0f;
+    [Tooltip("Happiness in the current house. The house's taxIncome value will be multiplied by the happiness")]
+    [SerializeField] private float currentHappiness = 0.8f;
     [Tooltip("Carbon gas normally emitted by the house.")]
     [SerializeField] private float carbonEmission = 2.0f;
     
@@ -60,5 +60,15 @@ public class House : BaseBuilding
         {
             Debug.LogError("CityManager instance not set!");
         }
+    }
+
+    protected override void OnSelection()
+    {
+        CityManager.Instance.ShowHouseInfo(this);
+    }
+
+    protected override void Highlight()
+    {
+        //GetComponentInChildren<MeshRenderer>().material.SetColor("", );
     }
 }
