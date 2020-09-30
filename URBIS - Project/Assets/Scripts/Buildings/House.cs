@@ -48,8 +48,10 @@ public class House : BaseBuilding
     
     public float TaxIncome => taxIncome;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+        
         if (CityManager.Instance)
         {
             CityManager.Instance.TrackHouse(this);

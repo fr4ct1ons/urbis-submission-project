@@ -8,7 +8,8 @@ using UnityEngine.InputSystem;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private Transform objectToMove;
-    [SerializeField] private Transform camera;
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private Camera camera;
     [SerializeField] private float movementSpeed = 3.0f;
     [SerializeField] private CinemachineFreeLook freeLookCamera;
 
@@ -17,8 +18,16 @@ public class CameraMovement : MonoBehaviour
     private float cameraRotationValue;
     private CameraInputs inputs;
 
+    public delegate void ClickDelegate(RaycastHit hitObject);
+
+    public static event ClickDelegate OnMouseClick;
+
     private void Awake()
     {
+        if (!camera)
+        {
+            camera = Camera.main;
+        }
         inputs = new CameraInputs();
         inputs.Gameplay.MoveCamera.performed += MoveCamera;
         inputs.Gameplay.MoveCamera.canceled += ctx =>
@@ -29,6 +38,19 @@ public class CameraMovement : MonoBehaviour
         
         inputs.Gameplay.RotateCamera.canceled += ctx => cameraRotationValue = 0.0f;
         inputs.Gameplay.RotateCamera.performed += RotateCamera;
+        inputs.Gameplay.LeftClick.performed += Select;
+    }
+
+    private void Select(InputAction.CallbackContext obj)
+    {
+        Ray screenRay = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        Debug.DrawRay(screenRay.origin, screenRay.direction * 100.0f, Color.green, 3.0f);
+
+        RaycastHit result;
+        Physics.Raycast(screenRay, out result);
+
+        OnMouseClick?.Invoke(result);
     }
 
     private void RotateCamera(InputAction.CallbackContext obj)
@@ -46,11 +68,11 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCamera(InputAction.CallbackContext obj)
     {
-        bufferForward = camera.forward;
+        bufferForward = cameraTransform.forward;
         bufferForward.y = 0.0f;
         bufferForward *= obj.ReadValue<Vector2>().y;
         
-        bufferRight = camera.right;
+        bufferRight = cameraTransform.right;
         bufferRight *= obj.ReadValue<Vector2>().x;
     }
 

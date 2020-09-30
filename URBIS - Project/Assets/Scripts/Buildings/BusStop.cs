@@ -5,7 +5,15 @@ public class BusStop: BaseBuilding
 {
     [SerializeField] private float carbonDecrease = 3.0f;
     
-    private void OnTriggerEnter(Collider other)
+    [SerializeField] private CollisionAuxiliary auxCollider;
+
+    private void Awake()
+    {
+        auxCollider.TriggerEnter += OnAuxEnter;
+        auxCollider.TriggerExit += OnAuxExit;
+    }
+    
+    private void OnAuxEnter(Collider other)
     {
         if (other.TryGetComponent<House>(out House house))
         {
@@ -13,7 +21,7 @@ public class BusStop: BaseBuilding
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnAuxExit(Collider other)
     {
         if (other.TryGetComponent<House>(out House house))
         {
