@@ -884,7 +884,9 @@ MonoBehaviour:
   isPersistent: 0
   startingMoney: 500
   distanceBetweenHouses: {x: 10, y: 0, z: 10}
+  spawnHouseCooldown: 5
   emptyTileHighlight: {fileID: 3407826440818311024, guid: 06a49c6dbae9824409d93711fa4cfb56, type: 3}
+  housePrefab: {fileID: 5822384093803626261, guid: 4797e65665a7226409f43820fdba7ee2, type: 3}
   hospitalPrefab: {fileID: 8992202211067694993, guid: 6bae061950f3e5a43909a1aa9cabcc05, type: 3}
   policeDepartmentPrefab: {fileID: 9080642523664815346, guid: c4f55882e649d8c4b990c4b26f4e64ab, type: 3}
   busStopPrefab: {fileID: 8343292964762730473, guid: 8e0dfedc7e1d5bf4c95420d868bd07dc, type: 3}
@@ -898,6 +900,7 @@ MonoBehaviour:
   averageHappiness: 0
   totalCarbonEmission: 0
   currentBuildingState: 0
+  currentHouseSpawnCooldown: 0
 --- !u!4 &654898657
 Transform:
   m_ObjectHideFlags: 0
@@ -2934,7 +2937,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954992046}
-  m_LocalRotation: {x: 0.32065725, y: 0.000000029802322, z: -0.000000029802322, w: 0.94719535}
+  m_LocalRotation: {x: 0.32065728, y: 0.000000059604645, z: -0.000000007450581, w: 0.94719535}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
