@@ -259,6 +259,11 @@ public class CityManager : MonoBehaviour
         }
     }
 
+    public void HideInfoWindow()
+    {
+        selectedObject = null;
+    }
+
     public void ShowHouseInfo(House house)
     {
         BeforeShowInfo();

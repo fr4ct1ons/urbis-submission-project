@@ -15,7 +15,11 @@ public class CameraMovement : MonoBehaviour
     [Space]
     
     [SerializeField] private float maxZoom = 8.0f;
-    [SerializeField] private float movementSpeed = 3.0f;
+    [SerializeField] private float midRigMinHeight;
+    [SerializeField] private float midRigMinRadius;
+    
+    [SerializeField] private float frontSpeed = 3.0f;
+    [SerializeField] private float horizontalSpeed = 3.0f;
     [SerializeField] private float zoomSensibility = 1.0f;
 
     private Vector3 bufferForward = Vector3.zero;
@@ -33,13 +37,14 @@ public class CameraMovement : MonoBehaviour
         {
             camera = Camera.main;
         }
+
         inputs = new CameraInputs();
-        /*inputs.Gameplay.MoveCamera.performed += MoveCamera;
+        inputs.Gameplay.MoveCamera.performed += MoveCamera;
         inputs.Gameplay.MoveCamera.canceled += ctx =>
         {
-            bufferForward = Vector3.zero;
+            //bufferForward = Vector3.zero;
             bufferRight = Vector3.zero;
-        };*/
+        };
         
         inputs.Gameplay.RotateCamera.canceled += ctx => cameraRotationValue = 0.0f;
         inputs.Gameplay.RotateCamera.performed += RotateCamera;
@@ -50,11 +55,22 @@ public class CameraMovement : MonoBehaviour
     private void Zoom(InputAction.CallbackContext obj)
     {
         freeLookCamera.m_Lens.OrthographicSize += obj.ReadValue<Vector2>().y * zoomSensibility * -1;
-        
-        
+        freeLookCamera.m_Orbits[1].m_Height += obj.ReadValue<Vector2>().y * zoomSensibility * -1;
+        freeLookCamera.m_Orbits[1].m_Radius += obj.ReadValue<Vector2>().y * zoomSensibility * -1;
+
         if (freeLookCamera.m_Lens.OrthographicSize < maxZoom)
         {
             freeLookCamera.m_Lens.OrthographicSize = maxZoom;
+        }
+
+        if (freeLookCamera.m_Orbits[1].m_Height < midRigMinHeight)
+        {
+            freeLookCamera.m_Orbits[1].m_Height = midRigMinHeight;
+        }
+        
+        if (freeLookCamera.m_Orbits[1].m_Radius < midRigMinRadius)
+        {
+            freeLookCamera.m_Orbits[1].m_Radius = midRigMinRadius;
         }
     }
 
@@ -81,21 +97,18 @@ public class CameraMovement : MonoBehaviour
         bufferForward = cameraTransform.forward;
         bufferForward.y = 0.0f;
         bufferForward *= inputs.Gameplay.MoveCamera.ReadValue<Vector2>().y;
-        
-        bufferRight = cameraTransform.right;
-        bufferRight *= inputs.Gameplay.MoveCamera.ReadValue<Vector2>().x;
-        
-        objectToMove.position += bufferForward * Time.deltaTime * movementSpeed;
-        objectToMove.position += bufferRight * Time.deltaTime * movementSpeed;
+
+        objectToMove.position += bufferForward * Time.deltaTime * frontSpeed * (1 + freeLookCamera.m_Lens.OrthographicSize - maxZoom);
+        objectToMove.position += bufferRight * Time.deltaTime * horizontalSpeed * (1 + freeLookCamera.m_Lens.OrthographicSize - maxZoom);
 
         freeLookCamera.m_XAxis.m_InputAxisValue = cameraRotationValue;
     }
 
     private void MoveCamera(InputAction.CallbackContext obj)
     {
-        bufferForward = cameraTransform.forward;
+        /*bufferForward = cameraTransform.forward;
         bufferForward.y = 0.0f;
-        bufferForward *= obj.ReadValue<Vector2>().y;
+        bufferForward *= obj.ReadValue<Vector2>().y;*/
         
         bufferRight = cameraTransform.right;
         bufferRight *= obj.ReadValue<Vector2>().x;
