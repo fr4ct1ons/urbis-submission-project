@@ -409,22 +409,40 @@ public class CityManager : MonoBehaviour
 
     public void BuildSelectedStructure(EmptyTile tile)
     {
+        float constructionCost;
         switch (currentBuildingState)
         {
             case BuildingHouseState.BuildingHospital:
-                Instantiate(hospitalPrefab, tile.transform.position, Quaternion.identity);
-                emptyTiles.Remove(tile);
-                Destroy(tile.gameObject);
+                constructionCost = hospitalPrefab.GetComponent<BaseBuilding>().ConstructionCost;
+                if (currentMoney >= constructionCost)
+                {
+                    Instantiate(hospitalPrefab, tile.transform.position, Quaternion.identity);
+                    emptyTiles.Remove(tile);
+                    Destroy(tile.gameObject);
+                    currentMoney -= constructionCost;
+                }
                 break;
             case BuildingHouseState.BuildingPoliceDepartment:
-                Instantiate(policeDepartmentPrefab, tile.transform.position, Quaternion.identity);
-                emptyTiles.Remove(tile);
-                Destroy(tile.gameObject);
+                constructionCost = policeDepartmentPrefab.GetComponent<BaseBuilding>().ConstructionCost;
+                if (currentMoney >= constructionCost)
+                {
+                    Instantiate(policeDepartmentPrefab, tile.transform.position, Quaternion.identity);
+                    emptyTiles.Remove(tile);
+                    Destroy(tile.gameObject);
+                    currentMoney -= constructionCost;
+                }
+
                 break;
             case BuildingHouseState.BuildingBusStop:
-                Instantiate(busStopPrefab, tile.transform.position, Quaternion.identity);
-                emptyTiles.Remove(tile);
-                Destroy(tile.gameObject);
+                constructionCost = busStopPrefab.GetComponent<BaseBuilding>().ConstructionCost;
+                if (currentMoney >= constructionCost)
+                {
+                    Instantiate(busStopPrefab, tile.transform.position, Quaternion.identity);
+                    emptyTiles.Remove(tile);
+                    Destroy(tile.gameObject);
+                    currentMoney -= constructionCost;
+                }
+
                 break;
             default:
                 //Debug.Log("Hello");

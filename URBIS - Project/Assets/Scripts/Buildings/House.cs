@@ -66,9 +66,4 @@ public class House : BaseBuilding
     {
         CityManager.Instance.ShowHouseInfo(this);
     }
-
-    protected override void Highlight()
-    {
-        //GetComponentInChildren<MeshRenderer>().material.SetColor("", );
-    }
 }

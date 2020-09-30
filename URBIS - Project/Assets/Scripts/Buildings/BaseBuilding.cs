@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class BaseBuilding : MonoBehaviour
 {
+    [SerializeField] private float constructionCost = 100.0f;
+
+    public float ConstructionCost => constructionCost;
+    
     protected virtual void Awake()
     {
         CameraMovement.OnMouseClick += MouseClicked;
@@ -15,15 +19,9 @@ public class BaseBuilding : MonoBehaviour
         if (hitobject.collider.gameObject == gameObject)
         {
             OnSelection();
-            Highlight();
         }
     }
 
-    protected virtual void Highlight()
-    {
-        
-    }
-    
     protected virtual void OnSelection()
     {
         

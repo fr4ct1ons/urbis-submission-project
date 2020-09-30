@@ -44,11 +44,6 @@ public class Hospital: BaseBuilding
         CityManager.Instance.ShowHospitalInfo(this);
     }
 
-    protected override void Highlight()
-    {
-        base.Highlight();
-    }
-
     public override void Deselect()
     {
         radiusObject.SetActive(false);
