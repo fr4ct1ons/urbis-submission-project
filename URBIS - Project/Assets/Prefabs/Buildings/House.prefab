@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5822384093803626260}
   - component: {fileID: 5822384093803626264}
+  - component: {fileID: 5448327755517884930}
   m_Layer: 0
   m_Name: House
   m_TagString: Untagged
@@ -46,6 +47,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taxIncome: 1
   currentHappiness: 1
+  hasPoliceDepartment: 0
+  hasHospital: 0
+--- !u!65 &5448327755517884930
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5822384093803626261}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 4, z: 5}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &6395028590027360530
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +73,6 @@ GameObject:
   - component: {fileID: 7479208058846521108}
   - component: {fileID: 8788620018928378274}
   - component: {fileID: 7677367254780938005}
-  - component: {fileID: 4449748178725525903}
   m_Layer: 0
   m_Name: House
   m_TagString: Untagged
@@ -128,16 +143,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4449748178725525903
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6395028590027360530}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

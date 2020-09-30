@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 8343292964762730472}
   - component: {fileID: 1231849043256661880}
   - component: {fileID: 5259841947614779006}
+  - component: {fileID: 4428677642739033416}
   m_Layer: 0
   m_Name: Bus stop
   m_TagString: Untagged
@@ -152,8 +153,21 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8343292964762730473}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4428677642739033416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8343292964762730473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae32a8cfe1f4267a41402a04ae04515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carbonDecrease: 3

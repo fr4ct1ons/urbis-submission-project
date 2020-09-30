@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class PoliceDepartment: BaseBuilding
+public class Hospital: BaseBuilding
 {
     [SerializeField] private float happinessIncrease = 0.1f;
     [SerializeField] private float secondaryHappinessIncrease = 0.05f;
@@ -10,11 +10,10 @@ public class PoliceDepartment: BaseBuilding
     {
         if (other.TryGetComponent<House>(out House house))
         {
-            if (!house.HasPoliceDepartment)
+            if (!house.HasHospital)
             {
                 house.CurrentHappiness += happinessIncrease;
-                house.HasPoliceDepartment = true;
-                Debug.Log(house.HasPoliceDepartment, house.gameObject);
+                house.HasHospital = true;
             }
             else
             {
