@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class PoliceDepartment: BaseBuilding, ICostlyBuilding
 {
+    [Tooltip("Happiness to be increased in the house if it does not have a hospital.")]
     [SerializeField] private float happinessIncrease = 0.1f;
+    [Tooltip("Happiness to be increased in the house if it has a hospital.")]
     [SerializeField] private float secondaryHappinessIncrease = 0.05f;
-    
-    [SerializeField] private CollisionAuxiliary triggerCollider;
-    
+    [Tooltip("Object that shows the hospital range.")]
     [SerializeField] private GameObject radiusObject;
-    [SerializeField] private int connectedHouses = 0;
-    
+    [Tooltip("How much tax income the hospital needs to operate.")]
     [SerializeField] private float operationCostPerSecond = 1.0f;
+    
+    [SerializeField] private int connectedHouses = 0;
+    [SerializeField] private CollisionAuxiliary triggerCollider;
 
     public float operationCost
     {
@@ -35,9 +37,12 @@ public class PoliceDepartment: BaseBuilding, ICostlyBuilding
     {
         base.Start();
         CityManager.Instance.TrackCostlyBuildings(this);
-        
     }
     
+    /// <summary>
+    /// Increases happiness on the collided house.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<House>(out House house))
@@ -56,6 +61,9 @@ public class PoliceDepartment: BaseBuilding, ICostlyBuilding
         }
     }
     
+    /// <summary>
+    /// Enables RadiusObject.
+    /// </summary>
     protected override void OnSelection()
     {
         base.OnSelection();
@@ -63,6 +71,9 @@ public class PoliceDepartment: BaseBuilding, ICostlyBuilding
         CityGUIManager.Instance.ShowPoliceDepartmentInfo(this);
     }
 
+    /// <summary>
+    /// Disables RadiusObject.
+    /// </summary>
     public override void Deselect()
     {
         radiusObject.SetActive(false);

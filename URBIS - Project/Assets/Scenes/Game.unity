@@ -1553,9 +1553,9 @@ MonoBehaviour:
   minHappiness: 0.9
   maxCarbonEmission: 5.5
   minTaxIncomePerHouse: -1.5
-  lowHappinessDuration: 5
-  lowTaxIncomeDuration: 5
-  highCarbonEmissionDuration: 5
+  lowHappinessDuration: 300
+  lowTaxIncomeDuration: 300
+  highCarbonEmissionDuration: 300
   losingColor: {r: 1, g: 0.1745283, b: 0.1745283, a: 1}
   regularColor: {r: 1, g: 1, b: 1, a: 1}
   emptyTileHighlight: {fileID: 3407826440818311024, guid: 06a49c6dbae9824409d93711fa4cfb56, type: 3}
@@ -1574,6 +1574,7 @@ MonoBehaviour:
   totalCarbonEmission: 0
   currentBuildingState: 0
   currentHouseSpawnCooldown: 0
+  houses: []
 --- !u!4 &654898657
 Transform:
   m_ObjectHideFlags: 0
@@ -3835,7 +3836,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308228132}
-  m_LocalRotation: {x: 0.28343636, y: -0.15709783, z: 0.047125667, w: 0.94486153}
+  m_LocalRotation: {x: 0.28343636, y: -0.15709785, z: 0.047125682, w: 0.94486153}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4057,7 +4058,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352117875}
-  m_LocalRotation: {x: 0.3190009, y: -0.40130135, z: 0.1514736, w: 0.845134}
+  m_LocalRotation: {x: 0.3190009, y: -0.40130135, z: 0.15147363, w: 0.84513396}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6622,7 +6623,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954992046}
-  m_LocalRotation: {x: 0.31631497, y: -0.15535319, z: 0.052592237, w: 0.93436843}
+  m_LocalRotation: {x: 0.31631497, y: -0.15535317, z: 0.052592233, w: 0.93436843}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

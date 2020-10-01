@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class BusStop: BaseBuilding, ICostlyBuilding
 {
-    [SerializeField] private CollisionAuxiliary auxCollider;
-    
+    [Tooltip("Object that shows the hospital range.")]
     [SerializeField] private GameObject radiusObject;
-    [SerializeField] private int connectedHouses = 0;
-    
+    [Tooltip("How much tax income the bus stop needs to operate.")]
     [SerializeField] private float operationCostPerSecond = 1.0f;
+    
+    [SerializeField] private int connectedHouses = 0;
+    [SerializeField] private CollisionAuxiliary auxCollider;
 
     public float operationCost
     {

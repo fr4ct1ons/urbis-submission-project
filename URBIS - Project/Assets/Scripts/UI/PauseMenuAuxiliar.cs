@@ -12,7 +12,9 @@ using UnityEngine.UI;
 /// </summary>
 public class PauseMenuAuxiliar : MonoBehaviour
 {
+    [Tooltip("Set to true if the menu should enable its own PauseInputs.")]
     [SerializeField] private bool createInputs = true;
+    [Tooltip("Set to true to stop time when pausing.")]
     [SerializeField] private bool stopTimeOnPause = true;
     
     [Tooltip("InputActions used for enabling/disabling the menu with the esc key.")]
@@ -223,6 +225,9 @@ public class PauseMenuAuxiliar : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    /// <summary>
+    /// Saves the game at slot 1.
+    /// </summary>
     public void SaveGame()
     {
         CityManager.Instance.SaveGame();

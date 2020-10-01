@@ -40,7 +40,9 @@ public class CityManager : MonoBehaviour
     [SerializeField] private float highCarbonEmissionDuration = 180;
 
     [Space]
+    [Tooltip("Color of the text when a certain resource may cause a game loss.")]
     [SerializeField] private Color losingColor = new Color(1.0f, 0.5f, 0.5f);
+    [Tooltip("Color of the text when a certain resource is normal.")]
     [SerializeField] private Color regularColor = new Color(1.0f, 1.0f, 1.0f);
     
     
@@ -61,7 +63,7 @@ public class CityManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI guiAverageHappiness;
     [SerializeField] private TextMeshProUGUI guiAverageCarbonEmission;
     
-    [Header("The below variables are serialized only for being easily viewable on the editor.")]
+    [Header("Values serialized for being easily edited")]
     
     [SerializeField] private float currentMoney;
     
@@ -104,6 +106,10 @@ public class CityManager : MonoBehaviour
         CameraMovement.OnMouseClick += MouseClick;
     }
 
+    /// <summary>
+    /// Builds the selected structure, if the player clicks an empty tile.
+    /// </summary>
+    /// <param name="hitobject"></param>
     private void MouseClick(RaycastHit hitobject)
     {
         if (hitobject.collider == null)
@@ -119,6 +125,9 @@ public class CityManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets the city's current tax income, setups average carbon emission and happiness and updates the UI.
+    /// </summary>
     private void Update()
     {
         taxIncomePerSecond = 0.0f;
@@ -142,20 +151,6 @@ public class CityManager : MonoBehaviour
             taxIncomePerSecond -= costlyBuildings[i].operationCost;
         }
 
-        /*for (var i = 0; i < houses.Count; i++)
-        {
-            House house = houses[i];
-            if (!house)
-            {
-                houses.Remove(house);
-                //continue;
-            }
-
-            taxIncomePerSecond += house.TaxIncome * house.CurrentHappiness;
-            averageHappiness += house.CurrentHappiness;
-            totalCarbonEmission += house.CarbonEmission / (house.AmountOfBusStops + 1);
-        }*/
-
         averageHappiness /= houses.Count;
         averageCarbonEmission = totalCarbonEmission / houses.Count;
         currentMoney += taxIncomePerSecond * Time.deltaTime;
@@ -175,6 +170,9 @@ public class CityManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if the player is about to lose.
+    /// </summary>
     private void ProcessLoseConditions()
     {
         if (averageHappiness < minHappiness && lowHappinessCoroutine == null)
@@ -218,6 +216,9 @@ public class CityManager : MonoBehaviour
             
     }
     
+    /// <summary>
+    /// Loses the game.
+    /// </summary>
     private void LoseGame()
     {
         Time.timeScale = 0.0f;

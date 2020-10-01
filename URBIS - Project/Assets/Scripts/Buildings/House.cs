@@ -12,6 +12,7 @@ public class House : BaseBuilding
     [Tooltip("Carbon gas normally emitted by the house.")]
     [SerializeField] private float carbonEmission = 2.0f;
     
+    [Tooltip("Variables serialized for easy editability.")]
     [SerializeField] private bool hasPoliceDepartment = false;
     [SerializeField] private bool hasHospital = false;
     [SerializeField] private int amountOfBusStops = 0;
@@ -62,6 +63,9 @@ public class House : BaseBuilding
         }
     }
 
+    /// <summary>
+    /// Shows the house info such as carbon emission, happiness etc.
+    /// </summary>
     protected override void OnSelection()
     {
         CityGUIManager.Instance.ShowHouseInfo(this);

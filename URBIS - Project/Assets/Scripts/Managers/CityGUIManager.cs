@@ -83,30 +83,36 @@ public class CityGUIManager : MonoBehaviour
 
     public void ShowHospitalInfo(Hospital hospital)
     {
+        BeforeShowInfo();
         selectedObject = hospital;
         structureInfoWindow.SetActive(true);
         string temp = "Hospital\n" +
-                      "Casas conectadas: " + hospital.ConnectedHouses;
+                      "Casas conectadas: " + hospital.ConnectedHouses + "\n" +
+                      "Custo de operação: " + hospital.operationCost + "\n";
 
         structureInfoText.SetText(temp);
     }
 
     public void ShowBusStopInfo(BusStop busStop)
     {
+        BeforeShowInfo();
         selectedObject = busStop;
         structureInfoWindow.SetActive(true);
         string temp = "Parada de ônibus\n" +
-                      "Casas conectadas: " + busStop.ConnectedHouses;
+                      "Casas conectadas: " + busStop.ConnectedHouses + "\n" +
+                      "Custo de operação: " + busStop.operationCost + "\n";
 
         structureInfoText.SetText(temp);
     }
     
     public void ShowPoliceDepartmentInfo(PoliceDepartment policeDepartment)
     {
+        BeforeShowInfo();
         selectedObject = policeDepartment;
         structureInfoWindow.SetActive(true);
         string temp = "Delegacia\n" +
-                      "Casas conectadas: " + policeDepartment.ConnectedHouses;
+                      "Casas conectadas: " + policeDepartment.ConnectedHouses + "\n" +
+                      "Custo de operação: " + policeDepartment.operationCost + "\n";
 
         structureInfoText.SetText(temp);
     }

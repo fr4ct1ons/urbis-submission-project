@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class CameraMovement : MonoBehaviour
 {
+    [Tooltip("Object to be moved with the movement keys.")]
     [SerializeField] private Transform objectToMove;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private Camera camera;
@@ -31,6 +32,9 @@ public class CameraMovement : MonoBehaviour
 
     public static event ClickDelegate OnMouseClick;
 
+    /// <summary>
+    /// Creates an input object.
+    /// </summary>
     private void Awake()
     {
         if (!camera)
@@ -62,6 +66,10 @@ public class CameraMovement : MonoBehaviour
         };
     }
 
+    /// <summary>
+    /// Zooms the camera in and out.
+    /// </summary>
+    /// <param name="obj"></param>
     private void Zoom(InputAction.CallbackContext obj)
     {
         freeLookCamera.m_Lens.OrthographicSize += obj.ReadValue<Vector2>().y * zoomSensibility * -1;
@@ -84,6 +92,10 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Shoots a ray at the mouse position and if there is an object, invoke the OnMouseClick event.
+    /// </summary>
+    /// <param name="obj"></param>
     private void Select(InputAction.CallbackContext obj)
     {
         Ray screenRay = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -97,11 +109,18 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Rotates the camera around.
+    /// </summary>
+    /// <param name="obj"></param>
     private void RotateCamera(InputAction.CallbackContext obj)
     {
         cameraRotationValue = obj.ReadValue<float>() * -1;
     }
 
+    /// <summary>
+    /// Moves the camera.
+    /// </summary>
     private void Update()
     {
         bufferForward = cameraTransform.forward;
@@ -114,12 +133,12 @@ public class CameraMovement : MonoBehaviour
         freeLookCamera.m_XAxis.m_InputAxisValue = cameraRotationValue;
     }
 
+    /// <summary>
+    /// Sets the right movement direction.
+    /// </summary>
+    /// <param name="obj"></param>
     private void MoveCamera(InputAction.CallbackContext obj)
     {
-        /*bufferForward = cameraTransform.forward;
-        bufferForward.y = 0.0f;
-        bufferForward *= obj.ReadValue<Vector2>().y;*/
-        
         bufferRight = cameraTransform.right;
         bufferRight *= obj.ReadValue<Vector2>().x;
     }

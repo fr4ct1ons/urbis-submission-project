@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Auxiliary class used to subscribe to another object's collision events.
+/// </summary>
 public class CollisionAuxiliary : MonoBehaviour
 {
     public delegate void OnCollisionEvent(Collision other);

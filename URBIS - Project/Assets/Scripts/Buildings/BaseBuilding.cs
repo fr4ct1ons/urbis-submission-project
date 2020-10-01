@@ -9,6 +9,9 @@ public class BaseBuilding : MonoBehaviour
 
     public float ConstructionCost => constructionCost;
     
+    /// <summary>
+    /// Subscribes the MouseClicked method to the OnMouseClick event.
+    /// </summary>
     protected virtual void Awake()
     {
         CameraMovement.OnMouseClick += MouseClicked;
@@ -34,6 +37,9 @@ public class BaseBuilding : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Spawns adjacent empty tiles.
+    /// </summary>
     protected virtual void Start()
     {
         Vector3[]  adjacents = new Vector3[4]; //frontHouse, backHouse, rightHouse, leftHouse;

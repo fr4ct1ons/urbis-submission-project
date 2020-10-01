@@ -8,12 +8,18 @@ using UnityEngine.UI;
 
 public class MainMenuAuxiliary : MonoBehaviour
 {
+    [Tooltip("Object containing the CityManager, to be disabled when loading the game.")]
     [SerializeField] private GameObject cityManager;
+    [Tooltip("Regular gameplay UI.")]
     [SerializeField] private GameObject gameplayUI;
     [SerializeField] private CustomSceneAsset gameScene;
+    [Tooltip("Button that is disabled if there is no save data.")]
     [SerializeField] private Button continueButton;
+    [Tooltip("CameMovement object, enabled when the game starts.")]
     [SerializeField] private CameraMovement cameraMovement;
-    [SerializeField] private CinemachineVirtualCameraBase gameplayCamera, mainMenuCamera;
+    
+    [SerializeField] private CinemachineVirtualCameraBase gameplayCamera;
+    [SerializeField] private CinemachineVirtualCameraBase mainMenuCamera;
     [SerializeField] private float mainMenuRotationSpeed;
 
     private bool hasSaveData = true;
@@ -36,22 +42,20 @@ public class MainMenuAuxiliary : MonoBehaviour
         mainMenuFreelook.m_XAxis.Value = mainMenuRotationSpeed;
     }
 
+    
     public void CloseGame()
     {
         Application.Quit();
     }
 
+    /// <summary>
+    /// Creates a new save data if there is no save game. Otherwise, starts the game normally.
+    /// </summary>
     public void NewGame()
     {
         if (!hasSaveData)
         {
-            cityManager.SetActive(true);
-            gameplayUI.SetActive(true);
-            gameObject.SetActive(false);
-            cameraMovement.enabled = true;
-
-            gameplayCamera.Priority = 10;
-            mainMenuCamera.Priority = 0;
+            ContinueGame();
         }
         else
         {
