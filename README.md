@@ -2,6 +2,8 @@
 
 Este jogo foi feito com o propósito de educar sobre o planejamento de um projeto de sustentabilidade de uma cidade. Nele, o jogador toma o controle de uma Secretaria de Meio Ambiente e Urbanismo de uma pequena cidade e deve gerenciar recursos para tornar a cidade sustentável, afim de reduzir o impacto no meio ambiente que a cidade causaria em futuras gerações.
 
+Feito por Gabriel Paes Landim de Lucena.
+
 Neste documento, será reunido as especificações do design deste projeto, como pré-planejamento, elaboração de game design, arquitetura/estrutura de projeto e especificações do código.
 
 # Como jogar
