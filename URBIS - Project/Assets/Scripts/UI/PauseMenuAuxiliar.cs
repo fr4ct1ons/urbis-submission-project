@@ -12,6 +12,9 @@ using UnityEngine.UI;
 /// </summary>
 public class PauseMenuAuxiliar : MonoBehaviour
 {
+    [SerializeField] private bool createInputs = true;
+    [SerializeField] private bool stopTimeOnPause = true;
+    
     [Tooltip("InputActions used for enabling/disabling the menu with the esc key.")]
     [SerializeField] private PauseInputs inputs;
     [Tooltip("GameObject containing menu buttons, sliders etc.")]
@@ -36,8 +39,11 @@ public class PauseMenuAuxiliar : MonoBehaviour
 
     private void Awake()
     {
-        inputs = new PauseInputs();
-        inputs.Pause.PauseGame.performed += PauseGameEscKey;
+        if (createInputs)
+        {
+            inputs = new PauseInputs();
+            inputs.Pause.PauseGame.performed += PauseGameEscKey;
+        }
 
         if (!PlayerPrefs.HasKey("IsPlayerPrefsCreated"))
         {
@@ -141,8 +147,11 @@ public class PauseMenuAuxiliar : MonoBehaviour
             {
                 source.Play();
             }*/
+        if (stopTimeOnPause)
+        {
+            Time.timeScale = 1.0f;
+        }
 
-        Time.timeScale = 1.0f;
         pauseMenu.SetActive(false);
         Cursor.visible = mouseIsHidden;
         OnGameResume?.Invoke();
@@ -157,10 +166,13 @@ public class PauseMenuAuxiliar : MonoBehaviour
         {
             source.Pause();
         }*/
-
+        if (stopTimeOnPause)
+        {
+            Time.timeScale = 0.0f;
+        }
+        
         mouseIsHidden = Cursor.visible;
-
-        Time.timeScale = 0.0f;
+        
         pauseMenu.SetActive(true);
         OnGamePause?.Invoke();
     }
@@ -213,11 +225,11 @@ public class PauseMenuAuxiliar : MonoBehaviour
     
     private void OnEnable()
     {
-        inputs.Enable();
+        inputs?.Enable();
     }
 
     private void OnDisable()
     {
-        inputs.Disable();
+        inputs?.Disable();
     }
 }
