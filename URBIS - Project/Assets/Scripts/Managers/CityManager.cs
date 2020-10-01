@@ -64,6 +64,7 @@ public class CityManager : MonoBehaviour
     [Header("The below variables are serialized only for being easily viewable on the editor.")]
     
     [SerializeField] private float currentMoney;
+    
     [SerializeField] private float averageCarbonEmission;
     [SerializeField] private float taxIncomePerSecond;
     [SerializeField] private float averageHappiness;
@@ -383,5 +384,53 @@ public class CityManager : MonoBehaviour
         {
             _tile.Disable();
         }*/
+    }
+
+    public void SaveGame()
+    {
+        House[] housesToSave = FindObjectsOfType<House>();
+        PoliceDepartment[] policeDepartmentsToSave = FindObjectsOfType<PoliceDepartment>();
+        BusStop[] busStopsToSave = FindObjectsOfType<BusStop>();
+        Hospital[] hospitalsToSave = FindObjectsOfType<Hospital>();
+
+        SaveData toSave = new SaveData();
+        
+        foreach (House house in housesToSave)
+        {
+            toSave.houses.Add(house.ToSaveData());
+        }
+        foreach (Hospital hospital in hospitalsToSave)
+        {
+            toSave.hospitals.Add(hospital.ToSaveData());
+        }
+        foreach (PoliceDepartment department in policeDepartmentsToSave)
+        {
+            toSave.policeDepartments.Add(department.ToSaveData());
+        }
+        foreach (BusStop busStop in busStopsToSave)
+        {
+            toSave.busStops.Add(busStop.ToSaveData());
+        }
+
+        toSave.managerCurrentMoney = currentMoney;
+
+        Debug.Log("Saving. Result: " + SaveDataManager.TrySaveData(toSave, 1));
+    }
+
+    public void LoadSaveData()
+    {
+        var data = SaveDataManager.LoadSaveData(1);
+
+        if (data == null)
+        {
+            Debug.Log("Save non-existent.");
+            return;
+        }
+        
+        BaseBuilding[] buildingsToDestroy = FindObjectsOfType<BaseBuilding>();
+        foreach (BaseBuilding building in buildingsToDestroy)
+        {
+            Destroy(building.gameObject);
+        }
     }
 }

@@ -48,4 +48,18 @@ public class Hospital: BaseBuilding
     {
         radiusObject.SetActive(false);
     }
+
+    public HospitalSaveData ToSaveData()
+    {
+        HospitalSaveData data = new HospitalSaveData();
+        
+        data.position = transform.position;
+        data.rotation = transform.eulerAngles;
+        data.scale = transform.lossyScale;
+
+        data.happinessIncrease = happinessIncrease;
+        data.secondaryHappinessIncrease = secondaryHappinessIncrease;
+
+        return data;
+    }
 }

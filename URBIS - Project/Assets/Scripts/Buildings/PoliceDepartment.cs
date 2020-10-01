@@ -52,4 +52,18 @@ public class PoliceDepartment: BaseBuilding
     {
         radiusObject.SetActive(false);
     }
+    
+    public PoliceDepartmentSaveData ToSaveData()
+    {
+        PoliceDepartmentSaveData data = new PoliceDepartmentSaveData();
+        
+        data.position = transform.position;
+        data.rotation = transform.eulerAngles;
+        data.scale = transform.lossyScale;
+
+        data.happinessIncrease = happinessIncrease;
+        data.secondaryHappinessIncrease = secondaryHappinessIncrease;
+
+        return data;
+    }
 }

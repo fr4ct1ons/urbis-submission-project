@@ -66,4 +66,19 @@ public class House : BaseBuilding
     {
         CityGUIManager.Instance.ShowHouseInfo(this);
     }
+
+    public HouseSaveData ToSaveData()
+    {
+        HouseSaveData data = new HouseSaveData();
+        
+        data.position = transform.position;
+        data.rotation = transform.eulerAngles;
+        data.scale = transform.lossyScale;
+
+        data.carbonEmission = carbonEmission;
+        data.taxIncome = taxIncome;
+        data.currentHappiness = currentHappiness;
+
+        return data;
+    }
 }

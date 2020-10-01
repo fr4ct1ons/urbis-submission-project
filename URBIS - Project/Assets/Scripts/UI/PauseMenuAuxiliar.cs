@@ -222,6 +222,11 @@ public class PauseMenuAuxiliar : MonoBehaviour
         
         PlayerPrefs.Save();
     }
+
+    public void SaveGame()
+    {
+        CityManager.Instance.SaveGame();
+    }
     
     private void OnEnable()
     {

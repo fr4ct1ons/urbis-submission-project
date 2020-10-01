@@ -50,4 +50,15 @@ public class BusStop: BaseBuilding
     {
         radiusObject.SetActive(false);
     }
+    
+    public BusStopSaveData ToSaveData()
+    {
+        BusStopSaveData data = new BusStopSaveData();
+        
+        data.position = transform.position;
+        data.rotation = transform.eulerAngles;
+        data.scale = transform.lossyScale;
+
+        return data;
+    }
 }
