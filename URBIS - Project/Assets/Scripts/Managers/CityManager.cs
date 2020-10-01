@@ -141,7 +141,7 @@ public class CityManager : MonoBehaviour
 
         ProcessLoseConditions();
         
-        guiCurrentMoney.SetText($"Fundo reserva: {currentMoney.ToString("0.00")}");
+        guiCurrentMoney.SetText($"Fundo: {currentMoney.ToString("0.00")}");
         guiAverageHappiness.SetText($"Felicidade: {averageHappiness.ToString("0.0")}");
         guiAverageCarbonEmission.SetText($"Emissão de CO2: {averageCarbonEmission.ToString("0.0")}");
         guiTaxIncomePerSecond.SetText($"Renda: {averageCarbonEmission.ToString("0.00")}");

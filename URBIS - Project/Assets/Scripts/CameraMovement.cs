@@ -50,6 +50,16 @@ public class CameraMovement : MonoBehaviour
         inputs.Gameplay.RotateCamera.performed += RotateCamera;
         inputs.Gameplay.LeftClick.performed += Select;
         inputs.Gameplay.Zoom.performed += Zoom;
+
+        PauseMenuAuxiliar.OnGamePause += () =>
+        {
+            inputs.Disable();
+        };
+
+        PauseMenuAuxiliar.OnGameResume += () =>
+        {
+            inputs.Enable();
+        };
     }
 
     private void Zoom(InputAction.CallbackContext obj)
