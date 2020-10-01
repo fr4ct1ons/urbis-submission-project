@@ -72,7 +72,8 @@ public class CityManager : MonoBehaviour
     [SerializeField] private BuildingHouseState currentBuildingState = BuildingHouseState.NotBuilding;
     [SerializeField] private float currentHouseSpawnCooldown = 0.0f;
 
-    private List<House> houses = new List<House>();
+    [SerializeField] private List<House> houses = new List<House>();
+    [SerializeField] private List<ICostlyBuilding> costlyBuildings = new List<ICostlyBuilding>();
     private HashSet<EmptyTile> emptyTiles = new HashSet<EmptyTile>();
 
     private IEnumerator lowTaxIncomeCoroutine, lowHappinessCoroutine, highCarbonEmissionCoroutine;
@@ -129,11 +130,16 @@ public class CityManager : MonoBehaviour
             if (!houses[i])
             {
                 houses.Remove(houses[i]);
-                //continue;
+                continue;
             }
             taxIncomePerSecond += houses[i].TaxIncome * houses[i].CurrentHappiness;
             averageHappiness += houses[i].CurrentHappiness;
             totalCarbonEmission += houses[i].CarbonEmission / (houses[i].AmountOfBusStops + 1);
+        }
+
+        for (int i = 0; i < costlyBuildings.Count; i++)
+        {
+            taxIncomePerSecond -= costlyBuildings[i].operationCost;
         }
 
         /*for (var i = 0; i < houses.Count; i++)
@@ -159,7 +165,7 @@ public class CityManager : MonoBehaviour
         guiCurrentMoney.SetText($"Fundo: {currentMoney.ToString("0.00")}");
         guiAverageHappiness.SetText($"Felicidade: {averageHappiness.ToString("0.0")}");
         guiAverageCarbonEmission.SetText($"Emissão de CO2: {averageCarbonEmission.ToString("0.0")}");
-        guiTaxIncomePerSecond.SetText($"Renda: {averageCarbonEmission.ToString("0.00")}");
+        guiTaxIncomePerSecond.SetText($"Renda: {taxIncomePerSecond.ToString("0.00")}");
 
         currentHouseSpawnCooldown += Time.deltaTime;
         if (currentHouseSpawnCooldown >= spawnHouseCooldown)
@@ -486,5 +492,10 @@ public class CityManager : MonoBehaviour
         currentMoney = data.managerCurrentMoney;
 
         return true;
+    }
+
+    public void TrackCostlyBuildings(ICostlyBuilding building)
+    {
+        costlyBuildings.Add(building);
     }
 }

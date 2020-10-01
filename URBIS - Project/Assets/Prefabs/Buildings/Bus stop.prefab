@@ -283,9 +283,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae32a8cfe1f4267a41402a04ae04515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  constructionCost: 100
   auxCollider: {fileID: 1925791420553928373}
   radiusObject: {fileID: 721290654882693307}
   connectedHouses: 0
+  operationCostPerSecond: 0.3
 --- !u!65 &7662204729130305537
 BoxCollider:
   m_ObjectHideFlags: 0

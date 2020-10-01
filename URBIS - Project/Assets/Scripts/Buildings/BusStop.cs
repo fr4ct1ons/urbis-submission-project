@@ -1,12 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
-public class BusStop: BaseBuilding
+public class BusStop: BaseBuilding, ICostlyBuilding
 {
     [SerializeField] private CollisionAuxiliary auxCollider;
     
     [SerializeField] private GameObject radiusObject;
     [SerializeField] private int connectedHouses = 0;
+    
+    [SerializeField] private float operationCostPerSecond = 1.0f;
+
+    public float operationCost
+    {
+        get => operationCostPerSecond;
+        set => operationCostPerSecond = value;
+    }
 
     public int ConnectedHouses
     {
@@ -20,7 +28,14 @@ public class BusStop: BaseBuilding
         auxCollider.TriggerEnter += OnAuxEnter;
         auxCollider.TriggerExit += OnAuxExit;
     }
-    
+
+    protected override void Start()
+    {
+        base.Start();
+        CityManager.Instance.TrackCostlyBuildings(this);
+        
+    }
+
     private void OnAuxEnter(Collider other)
     {
         if (other.TryGetComponent<House>(out House house))

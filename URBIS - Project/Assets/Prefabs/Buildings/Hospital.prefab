@@ -273,6 +273,7 @@ MonoBehaviour:
   radiusObject: {fileID: 8827784086607668864}
   triggerCollider: {fileID: 8319682880158781787}
   connectedHouses: 0
+  operationCostPerSecond: 0.7
 --- !u!54 &78679809243795630
 Rigidbody:
   m_ObjectHideFlags: 0

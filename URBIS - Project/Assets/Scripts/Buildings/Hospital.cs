@@ -1,15 +1,23 @@
 ﻿using System;
 using UnityEngine;
 
-public class Hospital: BaseBuilding
+public class Hospital: BaseBuilding , ICostlyBuilding
 {
     [SerializeField] private float happinessIncrease = 0.1f;
     [SerializeField] private float secondaryHappinessIncrease = 0.05f;
     [SerializeField] private GameObject radiusObject;
-    
+
     [SerializeField] private CollisionAuxiliary triggerCollider;
     
     [SerializeField] private int connectedHouses = 0;
+
+    [SerializeField] private float operationCostPerSecond = 1.0f;
+
+    public float operationCost
+    {
+        get => operationCostPerSecond;
+        set => operationCostPerSecond = value;
+    }
 
     public int ConnectedHouses => connectedHouses;
 
@@ -17,6 +25,13 @@ public class Hospital: BaseBuilding
     {
         base.Awake();
         triggerCollider.TriggerEnter += OnTriggerEnter;
+    }
+    
+    protected override void Start()
+    {
+        base.Start();
+        CityManager.Instance.TrackCostlyBuildings(this);
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -68,4 +83,5 @@ public class Hospital: BaseBuilding
         happinessIncrease = newHappinessIncrease;
         secondaryHappinessIncrease = newSecondaryHappinessIncrease;
     }
+
 }

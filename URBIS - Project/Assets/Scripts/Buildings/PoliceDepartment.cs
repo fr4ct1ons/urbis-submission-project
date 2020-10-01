@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class PoliceDepartment: BaseBuilding
+public class PoliceDepartment: BaseBuilding, ICostlyBuilding
 {
     [SerializeField] private float happinessIncrease = 0.1f;
     [SerializeField] private float secondaryHappinessIncrease = 0.05f;
@@ -10,6 +10,14 @@ public class PoliceDepartment: BaseBuilding
     
     [SerializeField] private GameObject radiusObject;
     [SerializeField] private int connectedHouses = 0;
+    
+    [SerializeField] private float operationCostPerSecond = 1.0f;
+
+    public float operationCost
+    {
+        get => operationCostPerSecond;
+        set => operationCostPerSecond = value;
+    }
     
     public int ConnectedHouses
     {
@@ -21,6 +29,13 @@ public class PoliceDepartment: BaseBuilding
     {
         base.Awake();
         triggerCollider.TriggerEnter += OnTriggerEnter;
+    }
+    
+    protected override void Start()
+    {
+        base.Start();
+        CityManager.Instance.TrackCostlyBuildings(this);
+        
     }
     
     private void OnTriggerEnter(Collider other)
