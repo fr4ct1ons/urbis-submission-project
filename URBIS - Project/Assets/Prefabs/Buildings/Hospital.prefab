@@ -267,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa09febd96bc439eae7ee6004d2502a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  constructionCost: 100
   happinessIncrease: 0.1
   secondaryHappinessIncrease: 0.05
   radiusObject: {fileID: 8827784086607668864}

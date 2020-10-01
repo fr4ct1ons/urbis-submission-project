@@ -267,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bd26f3c23842829d0dd946c9a04f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  constructionCost: 100
   happinessIncrease: 0.1
   secondaryHappinessIncrease: 0.05
   triggerCollider: {fileID: 3495581017339845619}

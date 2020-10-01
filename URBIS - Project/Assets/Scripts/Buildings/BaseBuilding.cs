@@ -16,9 +16,16 @@ public class BaseBuilding : MonoBehaviour
 
     private void MouseClicked(RaycastHit hitobject)
     {
-        if (hitobject.collider.gameObject == gameObject)
+        try
         {
-            OnSelection();
+            if (hitobject.collider.gameObject == gameObject)
+            {
+                OnSelection();
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
         }
     }
 
@@ -61,5 +68,10 @@ public class BaseBuilding : MonoBehaviour
     public virtual void Deselect()
     {
         
+    }
+
+    protected virtual void OnDestroy()
+    {
+        CameraMovement.OnMouseClick -= MouseClicked;
     }
 }
