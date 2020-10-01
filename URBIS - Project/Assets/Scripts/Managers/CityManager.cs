@@ -72,7 +72,7 @@ public class CityManager : MonoBehaviour
     [SerializeField] private BuildingHouseState currentBuildingState = BuildingHouseState.NotBuilding;
     [SerializeField] private float currentHouseSpawnCooldown = 0.0f;
 
-    private HashSet<House> houses = new HashSet<House>();
+    private List<House> houses = new List<House>();
     private HashSet<EmptyTile> emptyTiles = new HashSet<EmptyTile>();
 
     private IEnumerator lowTaxIncomeCoroutine, lowHappinessCoroutine, highCarbonEmissionCoroutine;
@@ -123,18 +123,32 @@ public class CityManager : MonoBehaviour
         taxIncomePerSecond = 0.0f;
         averageHappiness = 0.0f;
         totalCarbonEmission = 0.0f;
-        
-        foreach (House house in houses)
+
+        for (int i = 0; i < houses.Count; i++)
         {
+            if (!houses[i])
+            {
+                houses.Remove(houses[i]);
+                //continue;
+            }
+            taxIncomePerSecond += houses[i].TaxIncome * houses[i].CurrentHappiness;
+            averageHappiness += houses[i].CurrentHappiness;
+            totalCarbonEmission += houses[i].CarbonEmission / (houses[i].AmountOfBusStops + 1);
+        }
+
+        /*for (var i = 0; i < houses.Count; i++)
+        {
+            House house = houses[i];
             if (!house)
             {
                 houses.Remove(house);
-                continue;
+                //continue;
             }
+
             taxIncomePerSecond += house.TaxIncome * house.CurrentHappiness;
             averageHappiness += house.CurrentHappiness;
             totalCarbonEmission += house.CarbonEmission / (house.AmountOfBusStops + 1);
-        }
+        }*/
 
         averageHappiness /= houses.Count;
         averageCarbonEmission = totalCarbonEmission / houses.Count;
@@ -417,20 +431,60 @@ public class CityManager : MonoBehaviour
         Debug.Log("Saving. Result: " + SaveDataManager.TrySaveData(toSave, 1));
     }
 
-    public void LoadSaveData()
+    public bool LoadSaveData()
     {
         var data = SaveDataManager.LoadSaveData(1);
 
         if (data == null)
         {
             Debug.Log("Save non-existent.");
-            return;
+            return false;
         }
         
         BaseBuilding[] buildingsToDestroy = FindObjectsOfType<BaseBuilding>();
-        foreach (BaseBuilding building in buildingsToDestroy)
+        for (var index = 0; index < buildingsToDestroy.Length; index++)
         {
+            BaseBuilding building = buildingsToDestroy[index];
             Destroy(building.gameObject);
         }
+
+        foreach (HouseSaveData houseData in data.houses)
+        {
+            var house = Instantiate(housePrefab);
+            house.transform.position = houseData.position;
+            house.transform.eulerAngles = houseData.rotation;
+            house.transform.localScale = houseData.scale;
+
+            house.GetComponent<House>().Setup(houseData.carbonEmission, houseData.taxIncome);
+        }
+        foreach (HospitalSaveData hospitalData in data.hospitals)
+        {
+            var hospital = Instantiate(hospitalPrefab);
+            hospital.transform.position = hospitalData.position;
+            hospital.transform.eulerAngles = hospitalData.rotation;
+            hospital.transform.localScale = hospitalData.scale;
+            
+            hospital.GetComponent<Hospital>().Setup(hospitalData.happinessIncrease, hospitalData.secondaryHappinessIncrease);
+        }
+        foreach (BusStopSaveData busStopData in data.busStops)
+        {
+            var busStop = Instantiate(busStopPrefab);
+            busStop.transform.position = busStopData.position;
+            busStop.transform.eulerAngles = busStopData.rotation;
+            busStop.transform.localScale = busStopData.scale;
+        }
+        foreach (PoliceDepartmentSaveData departmentData in data.policeDepartments)
+        {
+            var policeDepartment = Instantiate(policeDepartmentPrefab);
+            policeDepartment.transform.position = departmentData.position;
+            policeDepartment.transform.eulerAngles = departmentData.rotation;
+            policeDepartment.transform.localScale = departmentData.scale;
+            
+            policeDepartment.GetComponent<PoliceDepartment>().Setup( departmentData.happinessIncrease, departmentData.secondaryHappinessIncrease);
+        }
+
+        currentMoney = data.managerCurrentMoney;
+
+        return true;
     }
 }

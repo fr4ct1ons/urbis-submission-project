@@ -58,7 +58,7 @@ public static class SaveDataManager
         }
         using (StreamWriter writer = new StreamWriter(Application.persistentDataPath + "/Save data/Save_Data_Slot" + slot + ".json"))
         {
-            writer.Write(JsonUtility.ToJson(data));
+            writer.Write(JsonUtility.ToJson(data, true));
             writer.Close();
             return true;
         }

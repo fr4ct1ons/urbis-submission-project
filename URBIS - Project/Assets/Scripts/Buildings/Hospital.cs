@@ -62,4 +62,10 @@ public class Hospital: BaseBuilding
 
         return data;
     }
+
+    public void Setup(float newHappinessIncrease, float newSecondaryHappinessIncrease)
+    {
+        happinessIncrease = newHappinessIncrease;
+        secondaryHappinessIncrease = newSecondaryHappinessIncrease;
+    }
 }

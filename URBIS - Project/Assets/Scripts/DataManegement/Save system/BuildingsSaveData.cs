@@ -13,6 +13,7 @@ public class HouseSaveData
     public float carbonEmission = 2.0f;
 }
 
+[Serializable]
 public class BusStopSaveData
 {
     public Vector3 position;
@@ -20,6 +21,7 @@ public class BusStopSaveData
     public Vector3 scale;
 }
 
+[Serializable]
 public class HospitalSaveData
 {
     public Vector3 position;
@@ -30,6 +32,7 @@ public class HospitalSaveData
     public float secondaryHappinessIncrease = 0.05f;
 }
 
+[Serializable]
 public class PoliceDepartmentSaveData
 {
     public Vector3 position;

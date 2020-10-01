@@ -66,4 +66,10 @@ public class PoliceDepartment: BaseBuilding
 
         return data;
     }
+
+    public void Setup(float newHappinessIncrease, float newSecondaryHappinessIncrease)
+    {
+        happinessIncrease = newHappinessIncrease;
+        secondaryHappinessIncrease = newSecondaryHappinessIncrease;
+    }
 }

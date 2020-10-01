@@ -81,4 +81,10 @@ public class House : BaseBuilding
 
         return data;
     }
+
+    public void Setup(float newCarbonEmission, float newTaxIncome)
+    {
+        carbonEmission = newCarbonEmission;
+        taxIncome = newTaxIncome;
+    }
 }
