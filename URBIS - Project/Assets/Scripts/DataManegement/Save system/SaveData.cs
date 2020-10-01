@@ -6,7 +6,8 @@ using UnityEngine;
 public class SaveData
 {
     public int slotNumber; //Starts at one. Index would start at zero.
-
+    public float timeOfDay;
+    
     public float managerCurrentMoney;
 
     public List<HouseSaveData> houses = new List<HouseSaveData>();

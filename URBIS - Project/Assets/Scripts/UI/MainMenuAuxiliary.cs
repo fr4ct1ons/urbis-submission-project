@@ -17,7 +17,9 @@ public class MainMenuAuxiliary : MonoBehaviour
     [SerializeField] private Button continueButton;
     [Tooltip("CameMovement object, enabled when the game starts.")]
     [SerializeField] private CameraMovement cameraMovement;
-    
+    [Tooltip("Object used to control the day-night cycle.")]
+    [SerializeField] private DayNightCycle dayNightCycle;
+
     [SerializeField] private CinemachineVirtualCameraBase gameplayCamera;
     [SerializeField] private CinemachineVirtualCameraBase mainMenuCamera;
     [SerializeField] private float mainMenuRotationSpeed;
@@ -25,11 +27,15 @@ public class MainMenuAuxiliary : MonoBehaviour
     private bool hasSaveData = true;
 
     private CinemachineFreeLook mainMenuFreelook;
+
     void Start()
     {
         cityManager.SetActive(false);
         Time.timeScale = 1.0f;
         mainMenuFreelook = (CinemachineFreeLook) mainMenuCamera;
+
+        dayNightCycle.enabled = false;
+        
         if (!CityManager.Instance.LoadSaveData())
         {
             continueButton.interactable = false;
@@ -70,6 +76,7 @@ public class MainMenuAuxiliary : MonoBehaviour
         gameplayUI.SetActive(true);
         gameObject.SetActive(false);
         cameraMovement.enabled = true;
+        dayNightCycle.enabled = true;
 
         gameplayCamera.Priority = 10;
         mainMenuCamera.Priority = 0;

@@ -56,9 +56,10 @@ public class CityManager : MonoBehaviour
     [SerializeField] private GameObject policeDepartmentPrefab;
     [SerializeField] private GameObject busStopPrefab;
 
-    [Space, Header("UI objects")]
+    [Space, Header("Objects on scene")]
     
     [SerializeField] private TextMeshProUGUI guiCurrentMoney;
+    [SerializeField] private DayNightCycle dayNightCycle;
     [SerializeField] private TextMeshProUGUI guiTaxIncomePerSecond;
     [SerializeField] private TextMeshProUGUI guiAverageHappiness;
     [SerializeField] private TextMeshProUGUI guiAverageCarbonEmission;
@@ -434,6 +435,7 @@ public class CityManager : MonoBehaviour
         }
 
         toSave.managerCurrentMoney = currentMoney;
+        toSave.timeOfDay = dayNightCycle.CurrentHourOfDay;
 
         Debug.Log("Saving. Result: " + SaveDataManager.TrySaveData(toSave, 1));
     }
@@ -491,6 +493,7 @@ public class CityManager : MonoBehaviour
         }
 
         currentMoney = data.managerCurrentMoney;
+        dayNightCycle.SetTimeHour(data.timeOfDay);
 
         return true;
     }
